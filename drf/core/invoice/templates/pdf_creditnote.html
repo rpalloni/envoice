@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Credit note</title>
+    </head>
+
+    <body>
+        <div class="top">
+            <div class="top-left">
+                <div class="invoice">
+                    <h3>{{ team.tm_name }}</h3>
+                    <p>Street name 123</p>
+                    <p>12345 City</p>
+                </div>
+
+                <div class="client">
+                    <h3>Client</h3>
+                    <p>{{ invoice.iv_client.cl_name }}</p>
+
+                    {% if invoice.iv_client.cl_address1 %}
+                        <p>{{ invoice.iv_client.cl_address1 }}</p>
+                    {% endif %}
+
+                    {% if invoice.iv_client.cl_zipcode or invoice.iv_client.cl_place %}
+                        <p>{{ invoice.iv_client.cl_zipcode }} {{ invoice.iv_client.cl_place }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="top-right">
+                <h2>Credit note {{ invoice.iv_invoice_number }}</h2>
+
+                <div class="split">
+                    <div class="split-left">Email</div>
+                    <div class="split-right">invoice@yourteam.com</div>
+                </div>
+
+                <div class="split">
+                    <div class="split-left">Invoice date</div>
+                    <div class="split-right">{{ invoice.iv_created_at|date:'d.m.Y' }}</div>
+                </div>
+
+                <div class="split">
+                    <div class="split-left">Credit note for invoice </div>
+                    <div class="split-right">{{ invoice.iv_is_credit_for}}</div>
+                </div>
+
+                {% if invoice.iv_sender_reference %}
+                    <div class="split">
+                        <div class="split-left">Our reference</div>
+                        <div class="split-right">{{ invoice.iv_sender_reference }}</div>
+                    </div>
+                {% endif %}
+
+                {% if invoice.iv_client.cl_contact_reference %}
+                    <div class="split">
+                        <div class="split-left">Their reference</div>
+                        <div class="split-right">{{ invoice.iv_client.cl_contact_reference }}</div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="items">
+            <div class="items-row">
+                <div class="items-row-cell header title">Title</div>
+                <div class="items-row-cell header quantity">Quantity</div>
+                <div class="items-row-cell header unit-price">Unit price</div>
+                <div class="items-row-cell header vat-rate">Vat rate</div>
+                <div class="items-row-cell header sum">Total</div>
+
+                {% for item in invoice.items.all %}
+                    <div class="items-row">
+                        <div class="items-row-cell title">{{ item.it_descr }}</div>
+                        <div class="items-row-cell quantity">{{ item.it_quantity }}</div>
+                        <div class="items-row-cell unit-price">-{{ item.it_unit_price }}</div>
+                        <div class="items-row-cell vat-rate">{{ item.it_vat_rate }}%</div>
+                        <div class="items-row-cell sum">-{{ item.get_gross_amount }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="summary">
+            <div class="summary-title">
+                <h2>Summary</h2>
+            </div>
+
+            <div class="summary-left">
+                <p><strong>Credit note number: </strong>{{ invoice.iv_invoice_number }}</p>
+                <p><strong>Invoice reference: </strong>{{ invoice.iv_is_credit_for }}</p>
+            </div>
+
+            <div class="summary-right">
+                <div class="split">
+                    <div class="split-left">Net amount</div>
+                    <div class="split-right">-{{ invoice.iv_net_amount }}</div>
+                </div>
+
+                <div class="split">
+                    <div class="split-left">Vat amount</div>
+                    <div class="split-right">-{{ invoice.iv_vat_amount }}</div>
+                </div>
+
+                <div class="split">
+                    <div class="split-left"><strong>Credit amount</strong></div>
+                    <div class="split-right"><strong>-{{ invoice.iv_gross_amount }}</strong></div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

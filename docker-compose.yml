@@ -1,0 +1,48 @@
+# docker compose version
+version: '3.8'
+
+# services => containers
+services:    
+  envoice_db:
+    container_name: envoice_db
+    image: postgres:12
+    ports:
+      - 5432:5432  # laptop_port:container_port
+    volumes: 
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - 'POSTGRES_DB=edb'
+      - 'POSTGRES_USER=postgres'
+      - 'POSTGRES_PASSWORD=postgres'
+      - 'DATABASE_HOST=envoice_db'
+      - 'DATABASE_PORT=5432'
+  
+  envoice_api:
+    container_name: envoice_api
+    build: 
+      context: ./drf # content of the local directory [docker-compose folder]
+      dockerfile: Dockerfile
+    # command: gunicorn config.wsgi -b 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./drf:/usr/src/drf # wd/path/on/laptop:wd/path/in/container
+      - web_static:/usr/src/drf/static
+    ports:
+      - 8000:8000  # laptop_port:container_port
+    depends_on:
+      - envoice_db
+
+  envoice_app:
+    container_name: envoice_app
+    build:
+      context: ./vue
+      dockerfile: Dockerfile
+    command: npm run serve
+    volumes:
+      - ./vue:/usr/src/vue
+    ports:
+      - 8080:8080
+
+volumes:
+  postgres_data:
+  web_static:
