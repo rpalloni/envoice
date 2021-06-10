@@ -13,7 +13,7 @@ invoice_pdf.short_description = 'Download pdf'
 
 
 class InvoiceAdmin(admin.ModelAdmin):
-    list_display = ['iv_invoice_number', 'iv_client', invoice_pdf] # add pdf download
+    list_display = ['iv_invoice_number', 'iv_year', 'iv_client', invoice_pdf] # add pdf download
     readonly_fields = ['iv_year'] # set read only fields
 
 

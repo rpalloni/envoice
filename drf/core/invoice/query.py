@@ -4,7 +4,7 @@ class FindQuery:
     '''raw query version of invoice search'''
 
     def __init__(self):
-        self.filters = {}
+        self.filters = {} # filters dict
         self.fq_sql = ''
         self.fq_select = 'SELECT * '
         self.fq_from = 'FROM invoice_invoice '
@@ -36,5 +36,7 @@ class FindQuery:
 
         # adding here
 
+        # compose query
         self.fq_sql = self.fq_select + self.fq_from + self.fq_where + self.fq_order
+
         return Invoice.objects.raw(self.fq_sql)

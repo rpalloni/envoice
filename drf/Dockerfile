@@ -1,4 +1,4 @@
-# Pull base image
+# pull base image
 FROM python:3.8
 
 # set environment variables

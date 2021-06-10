@@ -1,7 +1,7 @@
 import json
 import pdfkit
-from django.conf import settings
 
+from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django.template.loader import get_template
@@ -134,7 +134,6 @@ def send_reminder(request, invoice_id):
     msg.send()
 
     return Response()
-
 
 
 def admin_invoice_pdf(request, invoice_id):

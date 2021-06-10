@@ -1,4 +1,4 @@
-# Pull base image
+# pull base image
 FROM node:14.15.4
 
 # set environment variables
