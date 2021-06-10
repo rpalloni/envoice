@@ -21,12 +21,9 @@ class Invoice(models.Model):
         (CREDIT_NOTE, 'Credit note')
     )
     iv_id = models.AutoField(primary_key=True) # no auto generation of pk
-
     iv_invoice_number = models.IntegerField(verbose_name='Invoice Number', default=1)
-
     iv_year = models.IntegerField(verbose_name='Invoice Year', validators=[MaxValueValidator(2100)],
                                     blank=True, null=True, help_text="Generated from created at year")
-
     iv_team = models.ForeignKey(Team, 
                     verbose_name='Related Team',
                     db_column = 'iv_team',
@@ -37,16 +34,10 @@ class Invoice(models.Model):
                         db_column = 'iv_client',
                         related_name='invoices', # one client - many invoices
                         on_delete=models.CASCADE)
-    ''' related_name use: all invoices for a client
-    from core.client.models import Client
-    c = Client.objects.get(cl_id=1)
-    c.invoices.all() # c.related_name.all()
-    '''
-
     iv_sender_reference = models.CharField(verbose_name='Sender Reference', max_length=255, blank=True, null=True)
     iv_invoice_type = models.CharField(verbose_name='Invoice Type', max_length=20, choices=CHOICES_TYPE, default=INVOICE)
     iv_due_days = models.IntegerField(verbose_name='Due days', default=14)
-    iv_is_credit_for = models.ForeignKey('self', # only for cn => reference to self
+    iv_is_credit_for = models.ForeignKey('self', # only for credit note => reference to self
                             verbose_name='Credit for invoice',
                             db_column = 'iv_is_credit_for',
                             on_delete=models.CASCADE, 

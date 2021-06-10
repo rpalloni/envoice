@@ -1,6 +1,7 @@
 from .models import Invoice
 
 class FindQuery:
+    '''raw query version of invoice search'''
 
     def __init__(self):
         self.filters = {}

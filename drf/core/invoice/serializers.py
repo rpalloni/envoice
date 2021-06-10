@@ -44,7 +44,6 @@ class InvoiceSerializer(serializers.ModelSerializer):
             'iv_id',
             'iv_invoice_number',
             'iv_year',
-            'iv_client',
             'iv_sender_reference',
             'iv_invoice_type',
             'iv_due_days',
@@ -57,7 +56,9 @@ class InvoiceSerializer(serializers.ModelSerializer):
             'iv_vat_amount',
             'iv_net_amount',
             'iv_discount_amount',
-            'items', # related_name
+
+            'iv_client', # related client
+            'items', # related items
             'get_due_date', # property
             'get_year' # property
         )
@@ -83,3 +84,14 @@ class InvoiceSerializer(serializers.ModelSerializer):
         instance.iv_is_credited = validated_data.get('iv_is_credited', instance.iv_is_credited)
         instance.save()
         return instance
+
+
+'''
+python manage.py shell
+
+from core.invoice.models import Invoice
+from core.invoice.serializers import InvoiceSerializer
+inv = Invoice.objects.all()
+invser = InvoiceSerializer(inv, many=True)
+invser.data
+'''

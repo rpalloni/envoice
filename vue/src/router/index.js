@@ -22,14 +22,6 @@ const routes = [
     component: Home
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    //component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  },
-  {
     path: '/signup',
     name: 'SignUp',
     component: SignUp
@@ -88,7 +80,7 @@ const routes = [
     }
   },
   {
-    path: '/dashboard/account/edit-team', // dynamic router >> params: { id: client.cl_id }
+    path: '/dashboard/account/edit-team', // dynamic router >> params: { id: team.tm_id }
     name: 'TeamEdit',
     component: TeamEdit,
     meta: {
@@ -104,7 +96,7 @@ const routes = [
     }
   },
   {
-    path: '/dashboard/invoices/:id',
+    path: '/dashboard/invoices/:id', // dynamic router >> params: { id: invoice.iv_id }
     name: 'Invoice',
     component: Invoice,
     meta: {
