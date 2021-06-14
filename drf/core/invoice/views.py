@@ -18,12 +18,14 @@ from .models import Invoice, Item
 # from .query import FindQuery
 from core.client.models import Client
 from core.team.models import Team
+from core.utils.pagination import CustomPagination
 
 PDFCSS = str(settings.BASE_DIR) + '/static/css/pdf.css'
 
 
 class InvoiceViewSet(viewsets.ModelViewSet):
     serializer_class = InvoiceSerializer
+    pagination_class = CustomPagination
 
     def get_queryset(self):
         
