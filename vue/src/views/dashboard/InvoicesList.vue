@@ -80,13 +80,13 @@
                                 </td>
                             </tr>
                         </tbody>
-
+                        
                         <div class="field is-grouped">
                             <div class="control">
-                                <button class="button is-link is-light is-small" @click="getBackPage">Back</button>
+                                <button class="button is-link is-light is-small" @click="getBackPage"> &#8810; Back </button>
                             </div>
                             <div class="control">
-                                <button class="button is-link is-light is-small" @click="getNextPage">Next</button>
+                                <button class="button is-link is-light is-small" @click="getNextPage"> Next &#8811; </button>
                             </div>
                         </div>
                         
