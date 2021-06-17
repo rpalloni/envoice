@@ -16,7 +16,7 @@
                         <label class="label">Client</label>
                         <div class="control">
                             <div class="select">
-                                <select name="client" v-model="client">
+                                <select name="client" v-model="client" >
                                     <option value="">--- Select client ---</option>
                                     <option v-for="client in clients" v-bind:key="client.cl_id" v-bind:value="client">
                                         {{ client.cl_name }}
@@ -80,6 +80,16 @@
                                 </td>
                             </tr>
                         </tbody>
+
+                        <div class="field is-grouped">
+                            <div class="control">
+                                <button class="button is-link is-light is-small" @click="getBackPage">Back</button>
+                            </div>
+                            <div class="control">
+                                <button class="button is-link is-light is-small" @click="getNextPage">Next</button>
+                            </div>
+                        </div>
+                        
                     </table>
                 </div>
                 <div v-else>No invoices for this search</div>
@@ -97,7 +107,8 @@ export default {
             invoices: [],
             clients: [],
             client: '',
-            year: ''
+            year: '',
+            page: 1
         }
     },
     mounted() {
@@ -109,6 +120,7 @@ export default {
             axios
                 .get('/api/v1/clients/')
                 .then(response => {
+                    console.log(response.data)
                     this.clients = response.data
                 })
                 .catch(error => {
@@ -119,15 +131,18 @@ export default {
             this.invoices = []; // clear result set
             const params = {
                 'selected_client': this.client.cl_id,
-                'selected_year': this.year
+                'selected_year': this.year,
+                'page': this.page
             }
+            console.log('params',params)
             axios
                 //.get(`/api/v1/invoices/?selected_client=${this.client.cl_id}&selected_year=${this.year}`)
                 .get('/api/v1/invoices/', {params})
                 .then(response => {
-                    console.log(response)
-                    for (let i = 0; i < response.data.length; i++) {
-                        this.invoices.push(response.data[i])
+                    console.log(response.data.data) // get_paginated_response()
+                    console.log(response.data.meta)
+                    for (let i = 0; i < response.data.data.length; i++) {
+                        this.invoices.push(response.data.data[i])
                     }
                 })
                 .catch(error => {
@@ -137,6 +152,14 @@ export default {
         clearSearchFields(){
             this.client = '',
             this.year = ''
+        },
+        getNextPage(){
+            this.page++;
+            this.getInvoices();
+        },
+        getBackPage(){
+            this.page--;
+            this.getInvoices();
         }
     }
 }
