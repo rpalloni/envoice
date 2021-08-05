@@ -1,5 +1,6 @@
 import json
 import pdfkit
+import time
 
 from django.conf import settings
 from django.shortcuts import get_object_or_404
@@ -47,6 +48,7 @@ class InvoiceViewSet(viewsets.ModelViewSet):
 
         # print(Invoice.objects.filter(**filters).query)
         result = Invoice.objects.filter(**filters)
+        time.sleep(3)
 
         return result
 
