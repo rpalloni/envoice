@@ -48,6 +48,9 @@ export default {
     methods: {
         // after login, set user information in the browser
         async submitForm(e) {
+
+            this.$store.commit('setIsLoading', true);
+
             axios.defaults.headers.common["Authorization"] = ""
             localStorage.removeItem("token")
             const formData = {
@@ -90,6 +93,8 @@ export default {
                 .catch(error => {
                     console.log(JSON.stringify(error))
                 })
+            
+            this.$store.commit('setIsLoading', false);
         }
     }
 }

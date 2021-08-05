@@ -40,12 +40,15 @@ export default {
         }
     },
     methods: {
-        submitForm(e) {
+        async submitForm(e) {
+
+            this.$store.commit('setIsLoading', true);
+
             const formData = {
                 username: this.username,
                 password: this.password
             }
-            axios
+            await axios
                 .post('/api/v1/users/', formData) // djoser handles auth and token
                 .then(response => {
                     console.log(response)
@@ -63,6 +66,8 @@ export default {
                         console.log(JSON.stringify(error))
                     }
                 })
+
+            this.$store.commit('setIsLoading', false);
         }
     }
 }

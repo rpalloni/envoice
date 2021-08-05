@@ -24,6 +24,10 @@ export default createStore({
         state.isAuthenticated = false
       }
     },
+    // loading spinner
+    setIsLoading(state, status) {
+      state.isLoading = status
+    },
     setToken(state, token) {
       state.token = token
       state.isAuthenticated = true

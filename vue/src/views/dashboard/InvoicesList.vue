@@ -92,7 +92,6 @@
                         
                     </table>
                 </div>
-                <div v-else>No invoices for this search</div>
             </div>
         </div>     
     </div>
@@ -127,7 +126,10 @@ export default {
                     console.log(JSON.stringify(error))
                 })
         },
-        getInvoices() {
+        async getInvoices() {
+            
+            this.$store.commit('setIsLoading', true);
+            
             this.invoices = []; // clear result set
             const params = {
                 'selected_client': this.client.cl_id,
@@ -135,7 +137,7 @@ export default {
                 'page': this.page
             }
             console.log('params',params)
-            axios
+            await axios
                 //.get(`/api/v1/invoices/?selected_client=${this.client.cl_id}&selected_year=${this.year}`)
                 .get('/api/v1/invoices/', {params})
                 .then(response => {
@@ -148,6 +150,8 @@ export default {
                 .catch(error => {
                     console.log(JSON.stringify(error))
                 })
+
+            this.$store.commit('setIsLoading', false);
         },
         clearSearchFields(){
             this.client = '',
