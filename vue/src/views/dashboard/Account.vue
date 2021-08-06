@@ -20,8 +20,11 @@ export default {
         }
     },
     methods: {
-        logout() {
-            axios
+        async logout() {
+
+            this.$store.commit('setIsLoading', true);
+
+            await axios
                 .post('/api/v1/token/logout/')
                 .then(response => {
                     console.log(response)
@@ -42,6 +45,8 @@ export default {
                         console.log(JSON.stringify(error))
                     }
                 })
+                
+            this.$store.commit('setIsLoading', false);    
 
         }
     }

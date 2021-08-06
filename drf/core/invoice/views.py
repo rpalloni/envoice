@@ -48,7 +48,7 @@ class InvoiceViewSet(viewsets.ModelViewSet):
 
         # print(Invoice.objects.filter(**filters).query)
         result = Invoice.objects.filter(**filters)
-        time.sleep(3) # fake delay to test laoding spinner
+        # time.sleep(3) # fake delay to test laoding spinner
 
         return result
 

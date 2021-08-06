@@ -21,7 +21,7 @@
                         </thead>
 
                         <tbody>
-                            <tr v-for="invoice in unpaidInvoices" v-bind:key="invoice.id">
+                            <tr v-for="invoice in unpaidInvoices" v-bind:key="invoice.iv_id">
                                 <td>{{ invoice.iv_invoice_number }}</td>
                                 <td>{{ invoice.iv_client.cl_name }}</td>
                                 <td>{{ invoice.iv_gross_amount }}</td>
@@ -67,14 +67,13 @@ export default {
         this.getClients()
     },
     methods: {
-        getInvoices() {
-            axios
+        async getInvoices() {
+            await axios
                 .get('/api/v1/invoices/')
                 .then(response => {
-                    for (let i = 0; i < response.data.length; i++) {
-                        if (response.data[i].iv_invoice_type == 'invoice') {
-                            this.invoices.push(response.data[i])
-                        }
+                    console.log(response.data.data)
+                    for (let i = 0; i < response.data.data.length; i++) {
+                        this.invoices.push(response.data.data[i])
                     }
                 })
                 .catch(error => {
@@ -98,7 +97,8 @@ export default {
     },
     computed: {
         unpaidInvoices() {
-            return this.invoices.filter(invoice => invoice.iv_is_paid === false)
+            return this.invoices.filter(
+                invoice => invoice.iv_is_paid === false && invoice.iv_invoice_type == 'invoice')
         },
     }
 }

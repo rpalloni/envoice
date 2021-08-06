@@ -8,6 +8,7 @@
                 <li class="is-active"><router-link :to="{ name: 'ClientEdit', params: { id: client.cl_id }}"> {{ client.cl_name }}</router-link></li>
             </ul>
         </nav>
+        
         <div class="columns is-multiline">
             <div class="column is-12">
                 <h1 class="title">Edit client: {{ client.cl_name }}</h1>

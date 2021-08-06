@@ -7,6 +7,7 @@
                 <li class="is-active"><router-link to="/dashboard/clients/add" aria-current="true">Add</router-link></li>
             </ul>
         </nav>
+        
         <div class="columns is-multiline">
             <div class="column is-12">
                 <h1 class="title">Create new client</h1>
