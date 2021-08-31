@@ -1,5 +1,5 @@
 # envoice
-A simple invoice and clients manager webapp
+A basic invoice and clients manager webapp
 
 ![image](https://user-images.githubusercontent.com/17080117/121558694-2d1e8c00-ca16-11eb-9ea3-9b36cf0fc558.png)
 
