@@ -38,7 +38,7 @@ export default createStore({
       state.token = ''
       state.isAuthenticated = false
     },
-    // see Login.vue
+    // see Login.vue + settings DRF
     setUser(state, user){
       state.user = user
     }
