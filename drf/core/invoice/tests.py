@@ -3,18 +3,10 @@ import json
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from models import Invoice
-from .serializers import InvoiceSerializer
-# run test: python manage.py test
+# run test: python manage.py test core
 
 
-class InvoiceViewSetTestCase(APITestCase):
-
-    def setUp(self):
-        pass
-
-    def api_authentication(self):
-        pass
+class InvoiceTests(APITestCase):
 
     def test_invoices(self):
         response = self.client.get("/api/v1/invoices/")

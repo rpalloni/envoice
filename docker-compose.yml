@@ -40,9 +40,11 @@ services:
     command: npm run serve
     volumes:
       - ./vue:/usr/src/vue
+      - node_modules:/usr/src/vue/node_modules
     ports:
       - 8080:8080
 
 volumes:
   postgres_data:
   web_static:
+  node_modules:
