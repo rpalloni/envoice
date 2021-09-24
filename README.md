@@ -13,6 +13,7 @@ Main features:
 * generate credit note
 * generate invoice pdf
 * send reminder
+* unit testing
 
 Dev tools:
 * Postgresql 12
