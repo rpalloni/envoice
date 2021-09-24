@@ -29,6 +29,6 @@ class InvoiceTests(APITestCase):
     def api_authentication(self):
         self.client.credentials(HTTP_AUTHORIZATION="Token " + self.token.key) # token header
 
-    def test_invoices(self):
+    def test_get_invoices(self):
         response = self.client.get("/api/v1/invoices/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
