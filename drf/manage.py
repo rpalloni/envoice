@@ -19,7 +19,7 @@ def main():
             # catch the run debug event
             debugpy.wait_for_client()
             print('[DEBUG] Debugging ready to start...')
-    ##
+    ###
 
     try:
         from django.core.management import execute_from_command_line
