@@ -10,14 +10,13 @@ from django.core.exceptions import PermissionDenied
 from django.core.mail import EmailMultiAlternatives
 
 from rest_framework import viewsets
-from rest_framework import status, authentication, permissions
+from rest_framework import authentication, permissions
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.response import Response
 
 from .serializers import InvoiceSerializer, ItemSerializer
 from .models import Invoice, Item
 # from .query import FindQuery
-from core.client.models import Client
 from core.team.models import Team
 from core.utils.pagination import CustomPagination
 

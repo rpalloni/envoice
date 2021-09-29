@@ -1,0 +1,39 @@
+/* debug in Docker:
+add manage.py config
+add docker-compose config */
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "3D - Django Docker Debug",
+        "type": "python",
+        "request": "attach",
+        "pathMappings": [
+          {
+            "localRoot": "${workspaceFolder}/drf",
+            "remoteRoot": "/usr/src/drf"
+          }
+        ],
+        "port": 3000,
+        "host": "127.0.0.1",
+      }
+    ]
+  }
+  
+  /* debug local:
+  add settings.json config */
+  // {
+  //     "version": "0.2.0",
+  //     "configurations": [
+  //         {
+  //             "name": "Django Debug",
+  //             "type": "python",
+  //             "request": "launch",
+  //             "program": "${workspaceFolder}/drf/manage.py",
+  //             "args": [
+  //                 "runserver"
+  //             ],
+  //             "django": true
+  //         }
+  //     ]
+  // }

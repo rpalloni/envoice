@@ -29,6 +29,7 @@ services:
       - web_static:/usr/src/drf/static
     ports:
       - 8000:8000  # laptop_port:container_port
+      - 3000:3000  # debugger port
     depends_on:
       - envoice_db
 
