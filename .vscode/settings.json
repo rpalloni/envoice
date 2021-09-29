@@ -1,0 +1,27 @@
+{
+    "editor.tokenColorCustomizations": {
+        "[Monokai ST3]":{
+          "textMateRules":[
+            {
+              "scope": "string.quoted.docstring.multi.python",
+              "settings":{
+                "foreground": "#C2B280", // sand
+              }
+            },
+            {
+              "scope": "comment.line.number-sign.python",
+              "settings":{
+                "foreground": "#5D8AA8", // sugar paper
+              }
+            },
+            {
+              "scope":"entity.other.inherited-class.python",
+              "settings":{
+                "foreground": "#A6E22E", // same class color
+                "fontStyle": "" // no class underline
+              }
+            }
+          ]
+        }
+    },
+}
