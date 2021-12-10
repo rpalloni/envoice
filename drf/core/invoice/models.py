@@ -10,6 +10,8 @@ from django.contrib.auth.models import User
 from core.client.models import Client
 from core.team.models import Team
 
+# docker-compose exec envoice_api bash
+# use shell: python manage.py shell
 
 # invoice head
 class Invoice(models.Model):
