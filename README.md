@@ -5,6 +5,9 @@ A basic invoice and clients manager webapp
 
 ![image](https://user-images.githubusercontent.com/17080117/121558867-5212ff00-ca16-11eb-9cb7-9f70056cd871.png)
 
+![image](https://user-images.githubusercontent.com/17080117/156810801-5a37be34-6685-4da1-a350-54f0b80a7e5d.png)
+
+
 Main features:
 * basic dashboard
 * add/edit client
