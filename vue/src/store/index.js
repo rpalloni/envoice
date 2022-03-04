@@ -1,3 +1,11 @@
+/* 
+A store is a centralized location for data needed across multiple disparate app components 
+with centrally defined rules on how those pieces of data can be changed (e.g. logged user). 
+Without a store, data have to pass through props down to components and emit up via events to parents.
+By having a centralized store, we reduce the complexity of needing to pass/catch
+props and events up and down multiple levels and we centralize mutations on sensible data.
+*/
+
 import { createStore } from 'vuex'
 
 export default createStore({

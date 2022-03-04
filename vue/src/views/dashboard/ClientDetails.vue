@@ -4,14 +4,14 @@
             <ul>
                 <li><router-link to="/dashboard">Dashboard</router-link></li>
                 <li><router-link to="/dashboard/clients">Clients</router-link></li>
-                <li class="is-active"><router-link :to="{ name: 'Client', params: { id: client.cl_id }}">{{ client.cl_name }}</router-link></li>
+                <li class="is-active"><router-link :to="{ name: 'Client', params: { id: `${client.cl_id}` }}">{{ client.cl_name }}</router-link></li>
             </ul>
         </nav>
 
         <div class="columns is-multiline">
             <div class="column is-12">
                <h3 class="is-size-4 mb-4">{{ client.cl_name }}</h3>
-               <router-link :to="{ name: 'ClientEdit', params: { id: client.cl_id }}" class="button is-danger">Edit client</router-link>
+               <router-link :to="{ name: 'ClientEdit', params: { id: `${client.cl_id}`}}" class="button is-danger">Edit client</router-link>
             </div>
 
             

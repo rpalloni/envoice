@@ -78,11 +78,11 @@
                         </div>
                     
                         <div class="column is-6">
-                            <p><strong>Our reference</strong>: {{ invoice.iv_sender_reference }}</p>
-                            <p><strong>Client reference</strong>: {{ client.cl_contact_reference }} </p>
+                            <p v-if="invoice.iv_invoice_type==='invoice'"><strong>Credited:</strong> {{ invoice.iv_is_credited }}</p>
                             <p><strong>Due date</strong>: {{ invoice.get_due_date }}</p>
                             <p><strong>Status</strong>: {{ getStatusLabel() }}</p>
-                            <p v-if="invoice.iv_invoice_type==='invoice'" style ="color:red">Credited: {{ invoice.iv_is_credited }}</p>
+                            <p><strong>Our reference</strong>: {{ invoice.iv_sender_reference }}</p>
+                            <p><strong>Client reference</strong>: {{ client.cl_contact_reference }} </p>
                         </div>
                     </div>
                 </div>

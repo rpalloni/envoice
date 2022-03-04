@@ -4,8 +4,6 @@
             <ul>
                 <li><router-link to="/dashboard">Dashboard</router-link></li>
                 <li><router-link to="/dashboard/clients">Clients</router-link></li>
-                <li><router-link :to="{ name: 'Client', params: { id: client.cl_id }}">Edit</router-link></li>
-                <li class="is-active"><router-link :to="{ name: 'ClientEdit', params: { id: client.cl_id }}"> {{ client.cl_name }}</router-link></li>
             </ul>
         </nav>
         
