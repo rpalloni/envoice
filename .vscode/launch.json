@@ -1,3 +1,5 @@
+// first run container than run debug
+
 /* debug in Docker:
 add manage.py config
 add docker-compose config */
