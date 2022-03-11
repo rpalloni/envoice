@@ -11,15 +11,15 @@ class ClientInvoiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Invoice
         fields = (
-            "iv_id",
-            "iv_invoice_number",
-            "iv_is_sent",
-            "iv_is_paid",
-            "iv_gross_amount",
-            "iv_vat_amount",
-            "iv_net_amount",
-            "get_due_date",
-            "iv_invoice_type"
+            'iv_id',
+            'iv_invoice_number',
+            'iv_is_sent',
+            'iv_is_paid',
+            'iv_gross_amount',
+            'iv_vat_amount',
+            'iv_net_amount',
+            'get_due_date',
+            'iv_invoice_type'
         )
 
 class ClientSerializer(serializers.ModelSerializer):

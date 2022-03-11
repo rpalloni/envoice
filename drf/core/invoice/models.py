@@ -25,7 +25,7 @@ class Invoice(models.Model):
     iv_id = models.AutoField(primary_key=True) # no auto generation of pk
     iv_invoice_number = models.IntegerField(verbose_name='Invoice Number', default=1)
     iv_year = models.IntegerField(verbose_name='Invoice Year', validators=[MaxValueValidator(2100)],
-                                    blank=True, null=True, help_text="Generated from created at year")
+                                    blank=True, null=True, help_text='Generated from created at year')
     iv_team = models.ForeignKey(Team, 
                     verbose_name='Related Team',
                     db_column = 'iv_team',
@@ -71,7 +71,7 @@ class Invoice(models.Model):
 
     @property
     def get_due_date(self):
-        return (self.iv_created_at + timedelta(days=self.iv_due_days)).strftime("%Y-%m-%d")
+        return (self.iv_created_at + timedelta(days=self.iv_due_days)).strftime('%Y-%m-%d')
 
     @property
     def get_year(self):
