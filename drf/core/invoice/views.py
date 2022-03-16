@@ -5,6 +5,7 @@ import time
 from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
+from django.db import transaction
 from django.template.loader import get_template
 from django.core.exceptions import PermissionDenied
 from django.core.mail import EmailMultiAlternatives
@@ -17,7 +18,7 @@ from rest_framework.response import Response
 from .serializers import InvoiceSerializer, ItemSerializer
 from .models import Invoice, Item
 # from .query import FindQuery
-from core.team.models import Team
+from core.team.models import Team, TeamCreditBalance,TeamCashBalance
 from core.utils.pagination import CustomPagination
 
 PDFCSS = str(settings.BASE_DIR) + '/static/css/pdf.css'
@@ -68,20 +69,40 @@ class InvoiceViewSet(viewsets.ModelViewSet):
         team = self.request.user.teams.first()
         client = self.request.user.clients.get(cl_id=client_id)
         invoice_number = team.tm_first_invoice_nbr
-        team.tm_first_invoice_nbr = invoice_number + 1
-        team.save()
-        serializer.save(iv_created_by=self.request.user,
-                        iv_team=team,
-                        iv_client=client,
-                        iv_modified_by=self.request.user,
-                        iv_invoice_number=invoice_number,
-                        iv_bank_account=team.tm_bank_account)
 
+        ''' Control database transactions on many models in case one fails:
+        If the block of code is successfully completed, the changes are committed to the database. 
+        If there is an exception, the changes are rolled back.'''
+        with transaction.atomic():
+            team.tm_first_invoice_nbr = invoice_number + 1
+            team.save()
+            serializer.save(iv_created_by=self.request.user,
+                            iv_team=team,
+                            iv_client=client,
+                            iv_modified_by=self.request.user,
+                            iv_invoice_number=invoice_number,
+                            iv_bank_account=team.tm_bank_account)
+            # when created, add amount to the credit balance
+            credit = team.credit_balance.first()
+            credit.tc_balance +=  serializer.validated_data['iv_gross_amount']
+            credit.save()
+        
     def perform_update(self, serializer):
         obj = self.get_object()
         if self.request.user != obj.iv_created_by:
             raise PermissionDenied('No permission for update this element')
-        serializer.save()
+
+        with transaction.atomic():
+            serializer.save()
+            # when paid, decrease credit and increase cash
+            if serializer.validated_data['iv_is_paid'] == True:
+                team = self.request.user.teams.first()
+                credit = team.credit_balance.first()
+                cash = team.cash_balance.first()
+                credit.tc_balance -=  serializer.validated_data['iv_gross_amount']
+                credit.save()
+                cash.th_balance +=  serializer.validated_data['iv_gross_amount']
+                cash.save()
 
 
 class ItemViewSet(viewsets.ModelViewSet):
